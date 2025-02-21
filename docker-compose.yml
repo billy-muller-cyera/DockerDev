@@ -1,0 +1,17 @@
+services:
+  dev-environment:
+    platform: linux/x86_64
+    build: .
+    container_name: cloud-dev
+    restart: always
+    stdin_open: true
+    tty: true
+    volumes:
+      - ~/.aws:/root/.aws
+      - ~/.azure:/root/.azure:ro
+      - ~/.config/gcloud:/root/.config/gcloud:ro
+      - ${HOME}/workspace:/workspace
+    environment:
+      - TZ=UTC  # Set timezone if needed
+    working_dir: /workspace
+    entrypoint: ["/bin/bash"]
